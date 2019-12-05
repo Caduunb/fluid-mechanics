@@ -37,6 +37,9 @@ def showresults(T, x_axis, time_stamps):
 	plt.legend()
 	plt.show()
 
+def T_analitica(x,t):
+	return np.exp(-np.pi*np.pi*t)*np.sin(np.pi*x/2)
+
 def problem_slot(L, deltat, ttotal, N, PROBLEM_OPTION):
 	# Defining constants
 	ktotal = 1 + int(ttotal/(deltat))
@@ -72,6 +75,13 @@ def problem_slot(L, deltat, ttotal, N, PROBLEM_OPTION):
 		T[0, 1:] 	= np.sin((np.pi/2)*x_axis[1:]) 	# 0 < x < 2, t = 0
 		T[:, 0] 	= 0 	# x = 0, t >= 0
 		T[:, -1] 	= 0 	# x = 1, t >= 0
+		for t in range (len(x_axis)):
+			plt.plot(x_axis, T_analitica(x_axis,t))
+		plt.xlabel('Bar length (m)') 
+		plt.ylabel('Bar temperature (Celsius)') 
+		plt.title('Temperature vs Bar length analytical solution') 
+		plt.legend()
+		plt.show()
 	else:
 		print('\n\nOption not found...')
 		exit()
@@ -87,6 +97,6 @@ def problem_slot(L, deltat, ttotal, N, PROBLEM_OPTION):
 	showresults(T = T, x_axis = x_axis, time_stamps = time_stamps)
 
 # Main
-problem_slot(L = 1, deltat = 5e-4, ttotal = 100, N = 20, PROBLEM_OPTION = 1)
-problem_slot(L = 1, deltat = 5e-4, ttotal = 100, N = 20, PROBLEM_OPTION = 2)
+problem_slot(L = 1, deltat = 5e-3, ttotal = 100, N = 20, PROBLEM_OPTION = 1)
+problem_slot(L = 1, deltat = 5e-3, ttotal = 100, N = 20, PROBLEM_OPTION = 2)
 problem_slot(L = 2, deltat = 1e-4,  ttotal = 100, N = 100, PROBLEM_OPTION = 3)
